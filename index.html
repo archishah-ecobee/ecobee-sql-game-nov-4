@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔍 Who Broke Into the House? — An Ecobee Smart Home Mystery</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="header-title">
+      <span class="badge-icon">🔍</span>
+      <div>
+        <h1>Who Broke Into the House?</h1>
+        <p class="subtitle">An Ecobee Smart Home Security Mystery</p>
+      </div>
+    </div>
+    <div class="case-number">CASE&nbsp;FILE&nbsp;#1104</div>
+  </div>
+</header>
+
+<main class="layout">
+
+  <section class="game-main">
+
+    <!-- STORY -->
+    <details class="card story-card" open id="story-card">
+      <summary>📁 The Case</summary>
+      <div class="card-body">
+        <p>
+          Last night, the <strong>Morgan family's</strong> smart home was broken into.
+          Nothing was taken from the outside — no smashed windows, no broken locks.
+          Whoever got in used the house's own <strong>Ecobee smart home system</strong> against it.
+        </p>
+        <p>
+          The Morgans have Ecobee sensors on every door, motion detectors in the hallways,
+          cameras watching the yard and kitchen, a smart thermostat, and a keypad that arms
+          and disarms their security system. Every single one of those devices keeps a log.
+        </p>
+        <p>
+          <strong>You're the detective.</strong> You don't need to search the house —
+          you need to search the <em>data</em>. Use the SQL console below to query the
+          home's device logs, answer each clue, and figure out who broke in.
+        </p>
+        <p>
+          One more thing: Ecobee's device logs cover the <strong>whole street</strong>, not just
+          the Morgans' house. If a suspect claims they were home all night, you can check their
+          <em>own</em> house's sensor logs to see if that's true — just filter by
+          <code>house_address</code>.
+        </p>
+        <p class="story-hint">💡 New to SQL? Check the <strong>cheat sheet</strong> in the sidebar — it has copy-paste examples using this exact case's data.</p>
+      </div>
+    </details>
+
+    <!-- CASE LOG (progressive questions) -->
+    <div id="case-log" class="case-log"></div>
+
+    <!-- SQL CONSOLE -->
+    <section class="card console-card">
+      <h2>🖥️ SQL Console</h2>
+      <p class="console-hint">Type a query and press <strong>Run Query</strong>. Only <code>SELECT</code> queries are allowed — this keeps the evidence safe!</p>
+      <textarea id="sql-input" rows="4" spellcheck="false" placeholder="SELECT * FROM motion_events;"></textarea>
+      <div class="console-actions">
+        <button id="run-btn" class="btn btn-primary">▶ Run Query</button>
+        <span id="db-status" class="db-status">Loading database…</span>
+      </div>
+      <div id="query-error" class="query-error" hidden></div>
+      <div id="results-wrapper" class="results-wrapper"></div>
+    </section>
+
+    <!-- ANSWER PANEL -->
+    <section id="answer-panel" class="card answer-card" hidden>
+      <h2>📝 Submit This Clue's Answer</h2>
+      <p id="answer-question-label"></p>
+      <div class="answer-row">
+        <input id="answer-input" type="text" placeholder="Type your answer here…" autocomplete="off">
+        <button id="submit-answer-btn" class="btn btn-secondary">Submit Answer</button>
+      </div>
+      <button id="hint-btn" class="btn btn-ghost">💡 Need a hint?</button>
+      <p id="hint-text" class="hint-text" hidden></p>
+      <p id="answer-feedback" class="answer-feedback" hidden></p>
+    </section>
+
+    <!-- ACCUSATION -->
+    <section id="accusation-panel" class="card accusation-card" hidden>
+      <h2>🚨 Final Accusation</h2>
+      <p>You've followed every clue. Who broke into the Morgan family's house?</p>
+      <div class="answer-row">
+        <select id="suspect-select">
+          <option value="">— Choose a suspect —</option>
+        </select>
+        <button id="accuse-btn" class="btn btn-danger">Make Accusation</button>
+      </div>
+      <div id="accusation-result" class="accusation-result" hidden></div>
+    </section>
+
+  </section>
+
+  <aside class="sidebar">
+
+    <details class="card" open>
+      <summary>📋 Database Tables</summary>
+      <div class="card-body">
+        <p class="sidebar-hint">Click a table name to preview it in the console.</p>
+        <div id="schema-browser"></div>
+      </div>
+    </details>
+
+    <details class="card">
+      <summary>🧠 SQL Cheat Sheet</summary>
+      <div class="card-body cheatsheet" id="cheatsheet">
+        <!-- filled by app.js -->
+      </div>
+    </details>
+
+  </aside>
+
+</main>
+
+<footer class="site-footer">
+  Built for Take Your Kid to Work Day · Runs entirely in your browser via sql.js (SQLite + WebAssembly) · No internet or server required
+</footer>
+
+<script src="vendor/sql-wasm.js"></script>
+<script src="seed-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
